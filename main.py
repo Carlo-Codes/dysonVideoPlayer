@@ -1,5 +1,6 @@
 import vlc
 import keyboard
+import os
 
 
 keyPressed = False
@@ -54,8 +55,6 @@ def check_end(player: vlc.MediaPlayer):
             video = vlc_instance.media_new(current_video_path)
             player.set_media(video)
             player.play()
-
-  # Specify the path to the initial video
 
 
 
