@@ -4,20 +4,31 @@ import keyboard
 
 keyPressed = False
 loop = True
-# Create the VLC instance and media player
+
 vlc_instance = vlc.Instance('--no-xlib')
 player = vlc_instance.media_player_new()
+username = 'root'
+usbPath = '/media/'+ username +'/VIDEOS/'
 
-# Variable to store the path of the current video
 current_video_path = ""
-initial_video_path = "/data/1.mp4"
+initial_video_path = usbPath + "1.mp4"
 
 def check_stop():
     global loop
     if keyboard.is_pressed('z'):
         player.stop()
-        loop = False
+        vlc_instance.release()
+        loop=False
     
+def checkMediaAttached():
+    global loop
+    for d in os.listdir('/media/'+ username):
+        if d == 'VIDEOS':
+            loop = True
+            return
+    print('VIDEOS usb is not found,')
+    loop = False
+    return
 
 def setVideoKey(player: vlc.MediaPlayer, key: str, videoPath: str):
     try: 
@@ -40,7 +51,6 @@ def check_end(player: vlc.MediaPlayer):
     global current_video_path
     if player.get_state() == vlc.State.Ended:
         if current_video_path:
-            # If the video has ended, loop the current video
             video = vlc_instance.media_new(current_video_path)
             player.set_media(video)
             player.play()
@@ -57,6 +67,7 @@ player.play()
 
 
 while loop:
+    checkMediaAttached()
     check_stop()
     setVideoKey(player, 'w', '/data/2.mp4')
     setVideoKey(player, 'u', '/data/7.mp4')
