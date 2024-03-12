@@ -1,5 +1,7 @@
 import vlc
 import keyboard
+
+
 keyPressed = False
 loop = True
 # Create the VLC instance and media player
@@ -44,6 +46,9 @@ def check_end(player: vlc.MediaPlayer):
             player.play()
 
   # Specify the path to the initial video
+
+
+
 current_video_path = initial_video_path
 initial_video = vlc_instance.media_new(initial_video_path)
 player.set_media(initial_video)
@@ -55,7 +60,7 @@ while loop:
     check_stop()
     setVideoKey(player, 'w', '/data/2.mp4')
     setVideoKey(player, 'u', '/data/7.mp4')
-    setVideoKey(player, '+', '/data/5.mp4')
+    setVideoKey(player, 't', '/data/5.mp4')
     setVideoKey(player, 'y', '/data/6.mp4')
     setVideoKey(player, 'e', '/data/3.mp4')
     setVideoKey(player, 'r', '/data/4.mp4')
