@@ -8,7 +8,7 @@ loop = True
 
 vlc_instance = vlc.Instance('--no-xlib')
 player = vlc_instance.media_player_new()
-username = 'root'
+username = 'carlo'
 usbPath = '/media/'+ username +'/VIDEOS/'
 
 current_video_path = ""
@@ -37,12 +37,13 @@ def setVideoKey(player: vlc.MediaPlayer, key: str, videoPath: str):
         global current_video_path
         if keyboard.is_pressed(key):
             if not keyPressed:
-                video = vlc_instance.media_new(videoPath)
-                player.set_media(video)
-                player.play()
-                player.set_fullscreen(True)
-                current_video_path = videoPath
-                keyPressed = True
+                if current_video_path != videoPath:
+                    video = vlc_instance.media_new(videoPath)
+                    player.set_media(video)
+                    player.play()
+                    player.set_fullscreen(True)
+                    current_video_path = videoPath
+                    keyPressed = True
         else:
             keyPressed = False
     except:
@@ -68,12 +69,15 @@ player.play()
 while loop:
     checkMediaAttached()
     check_stop()
-    setVideoKey(player, 'w', '/data/2.mp4')
-    setVideoKey(player, 'u', '/data/7.mp4')
-    setVideoKey(player, 't', '/data/5.mp4')
-    setVideoKey(player, 'y', '/data/6.mp4')
-    setVideoKey(player, 'e', '/data/3.mp4')
-    setVideoKey(player, 'r', '/data/4.mp4')
-    setVideoKey(player, 'i', '/data/8.mp4')
+    
+    setVideoKey(player, 'w', usbPath + '2.mp4')
+    setVideoKey(player, 'u', usbPath + '7.mp4')
+    setVideoKey(player, '+', usbPath + '5.mp4')
+    setVideoKey(player, 'y', usbPath + '6.mp4')
+    setVideoKey(player, 'e', usbPath + '3.mp4')
+    setVideoKey(player, 'r', usbPath + '4.mp4')
+    setVideoKey(player, 'i', usbPath + '8.mp4')
+    setVideoKey(player, 'o', initial_video_path)
+    setVideoKey(player, 'p', initial_video_path)
 
     check_end(player)
